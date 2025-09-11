@@ -1,0 +1,43 @@
+{
+  "name": "zabos-kitchen-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Professional restaurant website for Zabo's Kitchen - Haitian & Caribbean cuisine in Hollywood, FL",
+  "keywords": ["restaurant", "haitian", "caribbean", "food", "hollywood", "florida"],
+  "author": "Tech Action Studio",
+  "homepage": "https://zaboskitchen.com",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:analyze": "vite build --mode analyze",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "postbuild": "npm run analyze:bundle",
+    "analyze:bundle": "npx vite-bundle-analyzer dist/assets/*.js",
+    "serve": "vite preview --port 3000 --host"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "lucide-react": "^0.542.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "vite": "^5.4.20"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
+  }
+}
