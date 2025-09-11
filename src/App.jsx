@@ -210,7 +210,7 @@ const RestaurantWebsite = () => {
       />
       
       {/* Animated Counters */}
-      <AnimatedCounters />
+      <AnimatedCounters onPageChange={setCurrentPage} />
       
       {/* Restaurant Gallery */}
       <PhotoGallery 
@@ -323,7 +323,7 @@ const RestaurantWebsite = () => {
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-brand-orange/10 to-brand-yellow/10 px-6 py-3 rounded-full border border-brand-orange/20 mb-6">
               <span className="text-2xl">⭐</span>
               <h2 className="font-heading text-3xl md:text-4xl text-brand-charcoal font-bold">
-                Popular Dishes
+
               </h2>
               <span className="text-2xl">⭐</span>
             </div>

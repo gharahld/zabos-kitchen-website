@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Users, Clock, Star, Award } from 'lucide-react';
 
-export function AnimatedCounters() {
+export function AnimatedCounters({ onPageChange }) {
   const [isVisible, setIsVisible] = useState(false);
   const [counts, setCounts] = useState({
     customers: 0,
@@ -178,10 +178,16 @@ export function AnimatedCounters() {
               Book your table today and become part of our success story.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="bg-gradient-to-r from-brand-orange to-brand-yellow text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300">
+              <button 
+                onClick={() => onPageChange && onPageChange('reservations')}
+                className="bg-gradient-to-r from-brand-orange to-brand-yellow text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+              >
                 📅 Make a Reservation
               </button>
-              <button className="bg-transparent border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 hover:border-white/50 transition-all duration-300">
+              <button 
+                onClick={() => onPageChange && onPageChange('menu')}
+                className="bg-transparent border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+              >
                 📋 View Our Menu
               </button>
             </div>
