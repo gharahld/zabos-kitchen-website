@@ -1,4 +1,4 @@
-export function DishTile({ dish }) {
+export function DishTile({ dish, addToCart }) {
   return (
     <article className="group overflow-hidden rounded-2xl border border-brand-light/50 bg-white shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
       {/* Image Container with Overlay */}
@@ -25,7 +25,7 @@ export function DishTile({ dish }) {
             {dish.name}
           </h3>
           <span className="text-2xl font-bold text-brand-orange bg-brand-orange/10 px-3 py-1 rounded-lg">
-            {dish.price}
+            ${dish.price}
           </span>
         </div>
         
@@ -52,7 +52,10 @@ export function DishTile({ dish }) {
         </div>
         
         {/* Add to Cart Button */}
-        <button className="w-full mt-4 bg-brand-orange text-white py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+        <button 
+          onClick={() => addToCart && addToCart(dish)}
+          className="w-full mt-4 bg-brand-orange text-white py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+        >
           Add to Cart
         </button>
       </div>

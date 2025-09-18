@@ -104,3 +104,4 @@ export function ImageCarousel({ images, autoPlay = true, interval = 5000 }) {
     </div>
   );
 }
+

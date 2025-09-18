@@ -2,62 +2,92 @@ import { DishTile } from './DishTile';
 
 const menuData = [
   {
+    id: 1,
     name: "Crispy Calamari",
-    price: "$12.99",
+    price: 12.99,
     img: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Appetizer"]
   },
   {
+    id: 2,
     name: "Buffalo Wings",
-    price: "$14.99",
+    price: 14.99,
     img: "https://images.unsplash.com/photo-1608039829572-78524f79c4c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Appetizer", "Spicy"]
   },
   {
+    id: 3,
     name: "Grilled Salmon",
-    price: "$24.99",
+    price: 24.99,
     img: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Main Course", "Healthy"]
   },
   {
+    id: 4,
     name: "Ribeye Steak",
-    price: "$32.99",
+    price: 32.99,
     img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Main Course", "Premium"]
   },
   {
+    id: 5,
     name: "Chicken Parmesan",
-    price: "$19.99",
+    price: 19.99,
     img: "https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Main Course", "Italian"]
   },
   {
+    id: 6,
     name: "Chocolate Cake",
-    price: "$8.99",
+    price: 8.99,
     img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Dessert"]
   },
   {
+    id: 7,
     name: "Strawberry Cheesecake",
-    price: "$9.99",
+    price: 9.99,
     img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Dessert"]
   },
   {
+    id: 8,
     name: "Tiramisu",
-    price: "$10.99",
+    price: 10.99,
     img: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Dessert"]
   },
   {
+    id: 9,
     name: "Red Velvet Cake",
-    price: "$9.49",
+    price: 9.49,
     img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     tags: ["Dessert"]
+  },
+  {
+    id: 10,
+    name: "Haitian Griot",
+    price: 18.99,
+    img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    tags: ["Main Course", "Haitian"]
+  },
+  {
+    id: 11,
+    name: "Jerk Chicken",
+    price: 16.99,
+    img: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    tags: ["Main Course", "Caribbean", "Spicy"]
+  },
+  {
+    id: 12,
+    name: "Plantain Chips",
+    price: 6.99,
+    img: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    tags: ["Appetizer", "Haitian"]
   }
 ];
 
-export function Menu() {
+export function Menu({ addToCart }) {
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Enhanced Background Elements */}
@@ -92,7 +122,7 @@ export function Menu() {
                 className="animate-fade-in-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <DishTile dish={dish} />
+                <DishTile dish={dish} addToCart={addToCart} />
               </div>
             ))}
           </div>

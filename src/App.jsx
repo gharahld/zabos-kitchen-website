@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, Clock, MapPin, Phone, Mail, Star, ShoppingCart, Users, Utensils, Heart, Award, Facebook, Instagram, Twitter } from 'lucide-react';
 import ReservationForm from './ReservationForm';
 import { Navbar } from './components/Navbar';
@@ -10,12 +10,17 @@ import { TermsOfUse } from './components/TermsOfUse';
 import { PhotoGallery } from './components/PhotoGallery';
 import { InteractiveMenu } from './components/InteractiveMenu';
 import { AnimatedCounters } from './components/AnimatedCounters';
+import { Cart } from './components/Cart';
+import { ContactForm } from './components/ContactForm';
+import { ContactAdmin } from './components/ContactAdmin';
 import ErrorBoundary from './components/ErrorBoundary';
+import { initializeSecurity } from './utils/securityConfig';
 
 const RestaurantWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Menu items
   const menuItems = [
@@ -89,9 +94,41 @@ const RestaurantWebsite = () => {
     });
   };
 
+  const updateCartQuantity = (itemId, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(itemId);
+      return;
+    }
+    
+    setCart(prev => 
+      prev.map(item => 
+        item.id === itemId 
+          ? { ...item, quantity: newQuantity }
+          : item
+      )
+    );
+  };
+
+  const removeFromCart = (itemId) => {
+    setCart(prev => prev.filter(item => item.id !== itemId));
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
   const getCartTotal = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
+
+  // Initialize security features
+  useEffect(() => {
+    initializeSecurity();
+  }, []);
 
   // Navigation Component
   const Navigation = () => (
@@ -256,9 +293,9 @@ const RestaurantWebsite = () => {
       />
       
       {/* Interactive Menu Preview */}
-      <InteractiveMenu menuItems={menuItems} />
+      <InteractiveMenu menuItems={menuItems} addToCart={addToCart} />
       
-      <Menu />
+      <Menu addToCart={addToCart} />
       
       {/* Enhanced Why Choose Us Section */}
       <div className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
@@ -386,8 +423,10 @@ const RestaurantWebsite = () => {
   const renderPage = () => {
     switch(currentPage) {
       case 'home': return <HomePage />;
-      case 'menu': return <Menu />;
+      case 'menu': return <Menu addToCart={addToCart} />;
       case 'reservations': return <ReservationForm />;
+      case 'contact': return <ContactForm />;
+      case 'admin': return <ContactAdmin />;
       case 'privacy': return <PrivacyPolicy />;
       case 'terms': return <TermsOfUse />;
       default: return <HomePage />;
@@ -396,12 +435,26 @@ const RestaurantWebsite = () => {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50">
-        <Navbar onPageChange={setCurrentPage} />
-        <div className="page-transition">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
+        <Navbar 
+          onPageChange={setCurrentPage} 
+          cart={cart}
+          onCartToggle={toggleCart}
+        />
+        <div className="flex-1 page-transition">
           {renderPage()}
         </div>
         <Footer onPageChange={setCurrentPage} />
+        
+        {/* Cart Component */}
+        <Cart
+          cart={cart}
+          onUpdateQuantity={updateCartQuantity}
+          onRemoveItem={removeFromCart}
+          onClearCart={clearCart}
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
+        />
       </div>
     </ErrorBoundary>
   );

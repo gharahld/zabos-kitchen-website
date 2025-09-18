@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, Star, Clock, Users } from 'lucide-react';
 
-export function InteractiveMenu({ menuItems }) {
+export function InteractiveMenu({ menuItems, addToCart }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [priceRange, setPriceRange] = useState([0, 50]);
@@ -178,7 +178,10 @@ export function InteractiveMenu({ menuItems }) {
                     <span className="text-2xl font-bold text-brand-orange bg-brand-orange/10 px-3 py-1 rounded-lg">
                       ${item.price}
                     </span>
-                    <button className="bg-gradient-to-r from-brand-orange to-orange-600 text-white px-6 py-2 rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    <button 
+                      onClick={() => addToCart && addToCart(item)}
+                      className="bg-gradient-to-r from-brand-orange to-orange-600 text-white px-6 py-2 rounded-xl font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    >
                       Add to Cart
                     </button>
                   </div>
@@ -212,3 +215,4 @@ export function InteractiveMenu({ menuItems }) {
     </section>
   );
 }
+

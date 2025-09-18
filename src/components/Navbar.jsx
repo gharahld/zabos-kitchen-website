@@ -1,9 +1,17 @@
 import { useState } from 'react';
 import { Button } from './Button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingCart } from 'lucide-react';
 
-export function Navbar({ onPageChange }) {
+export function Navbar({ onPageChange, cart, onCartToggle }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const getCartItemCount = () => {
+    return cart.reduce((sum, item) => sum + item.quantity, 0);
+  };
+
+  const getCartTotal = () => {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-light/50 shadow-sm">
@@ -48,6 +56,19 @@ export function Navbar({ onPageChange }) {
           <Button className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300" onClick={() => onPageChange('menu')}>
             🍽️ Order Online
           </Button>
+          
+          {/* Cart Button */}
+          <button
+            onClick={onCartToggle}
+            className="relative p-3 rounded-lg hover:bg-brand-orange/10 transition-colors duration-300 group"
+          >
+            <ShoppingCart className="w-6 h-6 text-brand-charcoal group-hover:text-brand-orange transition-colors duration-300" />
+            {getCartItemCount() > 0 && (
+              <span className="absolute -top-1 -right-1 bg-brand-orange text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold animate-bounce-in">
+                {getCartItemCount()}
+              </span>
+            )}
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -90,13 +111,25 @@ export function Navbar({ onPageChange }) {
               >
                 Contact
               </button>
-              <div className="pt-4">
+              <div className="pt-4 space-y-3">
                 <Button className="w-full shadow-lg" onClick={() => {
                   onPageChange('menu');
                   setIsMenuOpen(false);
                 }}>
                   🍽️ Order Online
                 </Button>
+                
+                {/* Mobile Cart Button */}
+                <button
+                  onClick={() => {
+                    onCartToggle();
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full flex items-center justify-center gap-2 p-3 rounded-lg bg-brand-orange/10 text-brand-charcoal hover:bg-brand-orange/20 transition-colors duration-300"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  <span>Cart ({getCartItemCount()})</span>
+                </button>
               </div>
             </div>
           </div>

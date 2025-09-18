@@ -145,3 +145,5 @@ export function preloadCriticalImages() {
 
   return preloadImages(criticalImages);
 }
+
+

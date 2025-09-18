@@ -152,3 +152,5 @@ export function PhotoGallery({ title = "Restaurant Gallery", photos }) {
     </section>
   );
 }
+
+
