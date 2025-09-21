@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Clock, MapPin, Phone, Mail, Star, ShoppingCart, Users, Utensils, Heart, Award, Facebook, Instagram, Twitter } from 'lucide-react';
+import { Award, Heart, Users } from 'lucide-react';
 import ReservationForm from './ReservationForm';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -13,12 +13,12 @@ import { AnimatedCounters } from './components/AnimatedCounters';
 import { Cart } from './components/Cart';
 import { ContactForm } from './components/ContactForm';
 import { ContactAdmin } from './components/ContactAdmin';
+import { Admin } from './components/Admin';
 import ErrorBoundary from './components/ErrorBoundary';
 import { initializeSecurity } from './utils/securityConfig';
 
 const RestaurantWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -130,113 +130,7 @@ const RestaurantWebsite = () => {
     initializeSecurity();
   }, []);
 
-  // Navigation Component
-  const Navigation = () => (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <div className="flex items-center cursor-pointer" onClick={() => setCurrentPage('home')}>
-            <div className="w-12 h-12 bg-brand-orange rounded-full flex items-center justify-center mr-3">
-              <Utensils className="text-white w-6 h-6" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-brand-charcoal">Flavor Haven</h1>
-              <p className="text-sm text-brand-gray">Come Hungry, Leave Happy</p>
-            </div>
-          </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
-            {['home', 'menu', 'reservations', 'about', 'contact'].map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`capitalize px-3 py-2 text-sm font-medium transition-colors ${
-                  currentPage === page 
-                    ? 'text-brand-orange border-b-2 border-brand-orange' 
-                    : 'text-brand-charcoal hover:text-brand-orange'
-                }`}
-              >
-                {page === 'home' ? 'Home' : page}
-              </button>
-            ))}
-          </div>
-
-          {/* Cart */}
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <ShoppingCart className="w-6 h-6 text-brand-charcoal" />
-              {cart.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-brand-orange text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                  {cart.reduce((sum, item) => sum + item.quantity, 0)}
-                </span>
-              )}
-            </div>
-            <span className="text-sm font-medium">${getCartTotal().toFixed(2)}</span>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-brand-charcoal hover:text-brand-orange"
-            >
-              <ChevronDown className={`w-6 h-6 transform transition-transform ${isMenuOpen ? 'rotate-180' : ''}`} />
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-brand-light">
-            <div className="py-2 space-y-1">
-              {['home', 'menu', 'reservations', 'about', 'contact'].map((page) => (
-                <button
-                  key={page}
-                  onClick={() => {
-                    setCurrentPage(page);
-                    setIsMenuOpen(false);
-                  }}
-                  className="block w-full text-left px-4 py-2 text-sm text-brand-charcoal hover:bg-orange-50 hover:text-brand-orange capitalize"
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
-  );
-
-  // Hero Section
-  const HeroSection = () => (
-    <div className="relative h-96 bg-gradient-to-r from-brand-orange to-orange-600 flex items-center justify-center text-white">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold mb-4">Welcome to Flavor Haven</h1>
-        <p className="text-xl mb-6">Come Hungry, Leave Happy</p>
-        <div className="space-x-4">
-          <button
-            onClick={() => setCurrentPage('menu')}
-            className="bg-white text-brand-orange px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-          >
-            View Menu
-          </button>
-          <button
-            onClick={() => setCurrentPage('reservations')}
-            className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-brand-orange transition-colors"
-          >
-            Book Table
-          </button>
-        </div>
-      </div>
-      {/* Grand Opening Banner */}
-      <div className="absolute top-4 right-4 bg-brand-blue text-white px-6 py-2 rounded-full font-bold">
-        🎉 Grand Opening!
-      </div>
-    </div>
-  );
 
   // Home Page
   const HomePage = () => (
@@ -426,7 +320,8 @@ const RestaurantWebsite = () => {
       case 'menu': return <Menu addToCart={addToCart} />;
       case 'reservations': return <ReservationForm />;
       case 'contact': return <ContactForm />;
-      case 'admin': return <ContactAdmin />;
+      case 'admin': return <Admin />;
+      case 'contact-admin': return <ContactAdmin />;
       case 'privacy': return <PrivacyPolicy />;
       case 'terms': return <TermsOfUse />;
       default: return <HomePage />;

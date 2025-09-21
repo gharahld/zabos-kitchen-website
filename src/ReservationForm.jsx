@@ -12,6 +12,27 @@ const ReservationForm = () => {
 
   const handleReservation = (e) => {
     e.preventDefault();
+    
+    // Create reservation object
+    const reservation = {
+      id: `RES-${Date.now()}`,
+      customerName: reservationForm.name,
+      email: reservationForm.email,
+      phone: reservationForm.phone,
+      date: new Date(reservationForm.date).toISOString(),
+      time: reservationForm.time,
+      partySize: parseInt(reservationForm.guests),
+      specialRequests: null,
+      status: 'PENDING',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    
+    // Save reservation to localStorage for admin to view
+    const existingReservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+    existingReservations.push(reservation);
+    localStorage.setItem('reservations', JSON.stringify(existingReservations));
+    
     alert('Reservation request sent! We\'ll confirm via email within 2 hours.');
     setReservationForm({
       name: '',

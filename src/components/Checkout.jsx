@@ -125,6 +125,38 @@ export function Checkout({ cart, onClose, onOrderComplete }) {
     const order = {
       id: `ORD-${Date.now()}`,
       transactionId: transactionResult.transactionId,
+      customerName: `${customerInfo.firstName} ${customerInfo.lastName}`,
+      email: customerInfo.email,
+      phone: customerInfo.phone,
+      deliveryAddress: deliveryInfo.method === 'delivery' ? customerInfo.address : null,
+      deliveryType: deliveryInfo.method.toUpperCase(),
+      paymentMethod: paymentInfo.method.toUpperCase(),
+      paymentStatus: 'COMPLETED',
+      orderStatus: 'PENDING',
+      subtotal: getCartTotal(),
+      tax: getTax(),
+      deliveryFee: getDeliveryFee(),
+      total: getFinalTotal(),
+      specialInstructions: deliveryInfo.specialInstructions,
+      orderItems: cart.map(item => ({
+        dishName: item.name,
+        dishPrice: item.price,
+        quantity: item.quantity,
+        specialRequests: null
+      })),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    
+    // Save order to localStorage for admin to view
+    const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+    existingOrders.push(order);
+    localStorage.setItem('orders', JSON.stringify(existingOrders));
+    
+    // Also save in the old format for PDF generation
+    const orderForPDF = {
+      id: order.id,
+      transactionId: transactionResult.transactionId,
       date: new Date().toLocaleDateString(),
       time: new Date().toLocaleTimeString(),
       customer: customerInfo,
@@ -139,12 +171,12 @@ export function Checkout({ cart, onClose, onOrderComplete }) {
       securityStatus: 'verified'
     };
     
-    setOrderDetails(order);
+    setOrderDetails(orderForPDF);
     setOrderComplete(true);
     setShowSecurePayment(false);
     
     // Generate and download PDF receipt
-    generatePDFReceipt(order);
+    generatePDFReceipt(orderForPDF);
   };
 
   const handlePaymentError = (error) => {
@@ -584,7 +616,7 @@ export function Checkout({ cart, onClose, onOrderComplete }) {
                 {cart.map((item) => (
                   <div key={item.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-4">
-                      <img src={item.image} alt={item.name} className="w-12 h-12 rounded-lg object-cover" />
+                      <img src={item.image || item.img} alt={item.name} className="w-12 h-12 rounded-lg object-cover" />
                       <div>
                         <h4 className="font-semibold text-gray-900">{item.name}</h4>
                         <p className="text-sm text-gray-600">Qty: {item.quantity}</p>

@@ -50,6 +50,13 @@ export function Footer({ onPageChange }) {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
             <div className="text-gray-400 text-xs">
               <p>&copy; 2024 Zabo's Kitchen Restaurant. All rights reserved.</p>
+              <button
+                onClick={() => onPageChange('admin')}
+                className="text-gray-500 hover:text-gray-300 text-xs transition-colors duration-300 opacity-20 hover:opacity-100"
+                title="Admin Access"
+              >
+                Admin
+              </button>
             </div>
             
             {/* Powered by Tech Action Studio */}

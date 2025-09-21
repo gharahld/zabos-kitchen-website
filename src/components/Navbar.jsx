@@ -53,6 +53,8 @@ export function Navbar({ onPageChange, cart, onCartToggle }) {
             Contact
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange group-hover:w-full transition-all duration-300"></span>
           </button>
+          
+          
           <Button className="shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300" onClick={() => onPageChange('menu')}>
             🍽️ Order Online
           </Button>
@@ -111,6 +113,8 @@ export function Navbar({ onPageChange, cart, onCartToggle }) {
               >
                 Contact
               </button>
+              
+              
               <div className="pt-4 space-y-3">
                 <Button className="w-full shadow-lg" onClick={() => {
                   onPageChange('menu');
